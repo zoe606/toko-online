@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('/hellow', function () {
     return 'Hello World';
 });
+
+Route::get('/product/display', 'ProductController@showAll');
+Route::get('/product/save', 'ProductController@saveNew');
