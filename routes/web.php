@@ -21,3 +21,13 @@ Route::get('/hellow', function () {
 
 Route::get('/product/display', 'ProductController@showAll');
 Route::get('/product/save', 'ProductController@saveNew');
+// route param
+Route::get('/product/{id}', 'ProductController@show');
+// route param yang bersifat opsional
+// *Route::get('/product/{id?}', 'ProductController@show');
+
+Route::get('/pintu-masuk', function () {
+    return 'Selamat Datang di pintu masuk!';
+});
+
+Route::get('/users/{user_id}/comments/{comment_id}', 'UserController@showComment');
