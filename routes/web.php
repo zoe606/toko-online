@@ -31,6 +31,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'mustAdmin'], function () {
     Route::get('/orders', 'DashboardController@orders');
 });
 
+Route::get('show-all-items', 'ItemController@showAllItems');
+
+Route::resource('categories', 'CategoryController');
+
 Route::get('/products/display', 'ProductController@showAll');
 Route::get('/products/save', 'ProductController@saveNew');
 // route param
@@ -40,5 +44,6 @@ Route::get('/products/{id}', 'ProductController@show');
 Route::get('/products/list', 'ProductController@list')->name('products');
 Route::post('/products/{id}', 'ProductController@create');
 Route::match(['PUT', 'PATCH'], '/products/{id}', 'ProductController@update');
+Route::get('search', 'ProductController@search');
 
 Route::get('/users/{user_id}/comments/{comment_id}', 'UserController@showComment');
