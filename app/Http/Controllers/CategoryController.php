@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category as Model;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return \Redirect::away('https://google.co.id');
+        return Model::all();
+    }
+
+    public function serach(Request $request)
+    {
+        $keyword = $request->get('name');
+
+        return Model::where('name', 'LIKE', '%$keyword%')->get();
     }
 
     /**
@@ -80,5 +88,34 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function delete($id)
+    {
+        $category = Model::findOrFail($id);
+
+        if(!$category->trashed()){
+            $category->delete();
+            return 'Kategori $category->name berhasil dihapus';
+        }
+    }
+
+    public function restore($id)
+    {
+        $category = Model::withTrashed()->findOrFail($id);
+
+        if(!$category->trashed()){
+            return 'Kategori tidak perlu direstore';
+        }
+
+        return 'Kategori $category->name berhasil di restore';
+    }
+
+    public function permanentDelete($id)
+    {
+        $category = Model::withTrashed()->findOrFail($id);
+        $category->forceDelete();
+
+        return 'Kategori $category->name berhasil dihapus permanent. tidak bsia di restore!';
     }
 }

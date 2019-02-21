@@ -47,3 +47,11 @@ Route::match(['PUT', 'PATCH'], '/products/{id}', 'ProductController@update');
 Route::get('search', 'ProductController@search');
 
 Route::get('/users/{user_id}/comments/{comment_id}', 'UserController@showComment');
+
+Route::group(['prefix' => 'latihan'], function () {
+    Route::get('/kategori/all', 'CategoryController@index');
+    Route::get('/kategori/search', 'CategoryController@serach');
+    Route::get('/kategori/{id}/delete', 'CategoryController@delete');
+    Route::get('/kategori/{id}/restore', 'CategoryController@restore');
+    Route::get('/kategori/{id}/permanent-delete', 'CategoryController@permanentDelete');
+});
